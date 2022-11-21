@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="container bg-light">
+
+    <div class="card-header">
+        <h3>Recordatorio: Eliminar una devolución es irreversible.</h3>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title">¿Estás seguro(a) que desea eliminar la devolución?</h4>
+    <br>
+        <p class="card-text">Vas a eliminar: {{ devolucion.producto_devuelto }}</p>
+        <p class="card-text">Del distribuidor: {{ devolucion.distribuidor_a_cargo }}</p>
+        <p class="card-text">Con fecha de: {{ devolucion.fecha_de_creacion }}</p>
+        <form action="{% url 'eliminar_devolucion' devolucion.id %}" method="POST">
+            {% csrf_token %}
+            <button type="button" class="btn btn-secondary" onclick="location.href='{% url 'registro_de_devoluciones' %}'">Cancelar</button>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+        
+    </div>
+    
+</div>
+
+{% endblock content %}
+

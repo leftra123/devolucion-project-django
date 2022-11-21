@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es-CL">
+
+<head>
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de devoluciones</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- sección navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'home' %}">Control de devoluciones</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        {% if request.path != '/' %}
+                        <a class="nav-link" aria-current="page" href="{% url 'home' %}">Inicio</a>
+                        {% endif %}
+                        {% if request.path != '/crear_nueva_devolucion/' %}
+                        <a class="nav-link" href="{% url 'crear_nueva_devolucion' %}">Crear nueva devolución</a>
+                        {% endif %}
+                        {% if request.path != '/registro_de_devoluciones/' %}
+                        <a class="nav-link" href="{% url 'registro_de_devoluciones' %}">Registro de devoluciones</a>
+                        {% endif %}
+                        {% comment "agregar esto cuando funcione el registro" %}<a class="nav-link" href="#">Editar devolución</a>
+                        <a class="nav-link" href="/editar_devolucion">Editar devolución</a> 
+                        <a class="nav-link" href="#">Eliminar devolución</a>
+                        <a class="nav-link" href="/eliminar_devolucion">Eliminar devolución</a> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- se agrega un block content -->
+        {% block content %}
+        {% endblock %}
+        {% comment %} 
+        ¡¡¡están con etiquetas que no son recomendadas!!! 
+        {% endcomment %}
+        <!-- se agrega un footer -->
+        <footer class="footer mt-auto py-3 bg-light">
+            <hr>
+            <div class="container">
+                <!-- lista centrada -->
+                <ul class="list-unstyled d-flex justify-content-center">
+                    <li class="me-3">
+                            <span class="text-muted">Control de devoluciones</span><br>
+                    </li>    
+                </ul>
+                <center><img src="{% static 'img/logo-ideal.png' %}" alt="logo" width="100" height="100"></center>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div class="container bg-light">
+    <!-- titulo -->
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Lista de devoluciones</h1>
+        </div>
+    </div>
+</div>
+{% if devoluciones %}
+{% csrf_token %}
+    <div class="row">
+        <div class="col-12">
+            {% comment %} <table class="table table-hover"> {% endcomment %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre del cliente</th>
+                        <th scope="col">Producto devuelto</th>
+                        <th scope="col">Cantidad devuelta</th>
+                        <th scope="col">Vendedor</th>
+                        <th scope="col">Distribuidor a cargo</th>
+                        <th scope="col">Fecha de creacion</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for devolucion in devoluciones %}
+                    <tr>
+                        <td>{{ devolucion.nombre_del_cliente }}</td>
+                        <td>{{ devolucion.producto_devuelto }}</td>
+                        <td>{{ devolucion.cantidad_devuelta }}</td>
+                        <td>{{ devolucion.vendedor }}</td>
+                        <td>{{ devolucion.distribuidor_a_cargo }}</td>
+                        <td>{{ devolucion.fecha_de_creacion }}</td>
+                        <td>
+                            <a href="/editar_devolucion/{{devolucion.id}}" class="btn btn-primary">Editar</a>
+                            <a href="/eliminar_devolucion/{{devolucion.id}}" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="container">
+                <div class="row">
+                    <hr>
+                    <div class="col-md-12">
+                        <a href="{% url 'crear_nueva_devolucion' %}" class="btn btn-success">Agregar devolucion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% else %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-warning" role="alert">
+                <h3 class="text-center"> No hay datos registrados</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+        <a href="{% url 'crear_nueva_devolucion' %}" class="btn btn-success">Agregar devolucion</a>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
