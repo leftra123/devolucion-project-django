@@ -1,0 +1,85 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% comment %} titulo {% endcomment %}
+<div class="container bg-light">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Lista de devoluciones</h1>
+        </div>
+    </div>
+</div>
+{% if devolucion %}
+{% csrf_token %}
+<div class="container bg-light">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Vendedor</th>
+                        <th scope="col">Distribuidora</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Monto en CLP</th>
+                        <th scope="col">Monto en USD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for devoluciones in devolucion %}
+                    <tr>
+                        <td>{{ devoluciones.cliente }}</td>
+                        <td>{{ devoluciones.producto }}</td>
+                        <td>{{ devoluciones.cantidad }}</td>
+                        <td>{{ devoluciones.vendedor }}</td>
+                        <td>{{ devoluciones.distribuidora }}</td>
+                        <td>{{ devoluciones.fecha }}</td>
+                        <td>{{ devoluciones.monto_devolucion_clp }}</td>
+                        <td>{{ devoluciones.monto_devolucion_usd }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="container bg-light">
+    {% comment %} alertas {% endcomment %}
+    <div class="container">
+        <div class="row">
+            <center>
+                <hr>
+                <div class="col-md-12">
+                    <div class="alert alert-success" role="alert">
+                        <h4 class="alert-heading">Bien hecho!</h4>
+                        <p>Se han encontrado {{devolucion|length}} devolucione(s)</p>
+                        <span class="text-muted">Dolar hoy: {{ dolar }}</span> <br>
+                        <a href="/creardevolucion/" class="btn btn-primary">Crear nueva devolucion</a>
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container bg-light">
+    <div class="container">
+        <div class="row">
+            <center>
+                <hr>
+                <div class="col-md-12">
+                    <div class="alert alert-warning" role="alert">
+                        <h4 class="alert-heading">No hay devoluciones registradas</h4>
+                        <p>Por favor ingrese una devolucion</p>
+                        <hr>
+                        <a href="/creardevolucion/" class="btn btn-primary">Crear nueva devolucion</a>
+                    </div>
+                </div>
+            </center>
+        </div>
+    </div>
+    {% comment %} fin alertas {% endcomment %}
+</div>
+{% endif %}
+{% endblock content%}

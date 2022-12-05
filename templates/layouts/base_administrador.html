@@ -16,38 +16,18 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/">Control de devoluciones</a>
+                    <a class="navbar-brand" href="/">Control de devoluciones </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                         aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div class="navbar-nav">
-                            <ul class="navbar-nav ms-auto">
-                                {% if user.is_staff %}
+                        <ul class="navbar-nav ms-auto">
+                            {% if user.is_authenticated %}
+                            {% if user.is_staff %}
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/crearcuenta/">Registrar nuevo usuario /</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/producto/">Lista de productos /</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/crearproducto/">Crear producto /</a>
-                                </li>
-                                {% comment %} <li class="nav-item">
-                                    <a class="nav-link" href="/devolucion/">Lista de devoluciones</a>
-                                </li> {% endcomment %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/cliente/">Lista de clientes /</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/crearcliente/">Crear cliente /</a>
-                                </li>
-                                {% endif %}
-                            
-                                {% if user.is_authenticated %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/producto/">Lista de productos /</a>
+                                    <a class="nav-link" href="/producto/">Lista de Productos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/devolucion/">Lista de devoluciones /</a>
@@ -56,15 +36,24 @@
                                     <a class="nav-link" href="/creardevolucion/">Crear devolución /</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/cerrarsesion/">Cerrar sesión de: {{user.username}}</a>
+                                    <a class="nav-link" href="/cerrarsesion/">Cerrar sesión del Administrador: {{user.username}}</a>
                                 </li>
-                                {% else %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/iniciarsesion/">Iniciar sesión /</a>
-                                </li>
-                                {% endif %}
-                                {% comment %} end usuaruio logueado {% endcomment %}
-                            </ul>
+                            {% endif %}
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/iniciarsesion/">Iniciar sesión /</a>
+                            </li> 
+                            {% endif %}
+                            {% comment %} <li class="nav-item">
+                                <a class="nav-link" href="/devolucion/">Lista de devoluciones /</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/creardevolucion/">Crear devolución /</a>
+                            </li>
+                            <li class="nav-item">             
+                                <a class="nav-link active" href="/cerrarsesion/">Cerrar sesión del cliente: {{ user.username }}</a>
+                            </li> {% endcomment %}
+                        </ul>
                         </div>
                     </div>
                 </div>

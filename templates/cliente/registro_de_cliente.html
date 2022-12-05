@@ -1,0 +1,73 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+{% comment %} titulo {% endcomment %}
+<div class="container bg-light">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Lista de Clientes</h1>
+        </div>
+    </div>
+</div>
+{% if cliente %}
+{% csrf_token %}
+<div class="container bg-light">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Tipo de Cliente</th>
+                        <th scope="col">Superuser creador</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in cliente %}
+                    <tr>
+                        <td>{{ c.nombre }}</td>
+                        <td>{{ c.tipo }}</td>
+                        <td>{{ c.user.username }}</td>
+                    </tr>
+                    {% endfor %}  
+                </tbody>
+            </table>
+            {% comment %} alertas {% endcomment %}
+            <div class="container">
+                <div class="row">
+                    <center>
+                        <hr>
+                        <div class="col-md-12">
+                            <center>
+                                <div class="alert alert-success" role="alert">
+                                    <h4 class="alert-heading">Bien hecho!</h4>
+                                    <p>Se han encontrado {{cliente|length}} Clientes</p>
+                                    <a href="/crearcliente/" class="btn btn-primary">Crear nuevo cliente</a>
+                                </div>
+                            </center>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="container bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <center>
+                    <div class="alert alert-warning" role="alert">
+                        <h4 class="alert-heading">No hay clientes registrados</h4>
+                        <p>Por favor registre un cliente</p>
+                        <hr>
+                        <a href="/crearcliente/" class="btn btn-primary">Crear nuevo cliente</a>
+                    </div>
+                </center>
+            </div>
+        </div>
+    </div>
+    {% comment %} fin alertas {% endcomment %}
+</div>
+{% endif %}
+{% endblock content %}

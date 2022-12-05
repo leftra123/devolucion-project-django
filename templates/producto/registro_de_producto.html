@@ -1,0 +1,85 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<!-- titulo -->
+<div class="container bg-light">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Lista de productos</h1>
+        </div>
+    </div>
+</div> 
+<!-- fin titulo -->
+
+<!-- formulario -->
+{% if producto %}
+{% csrf_token %}
+<div class="container bg-light">
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Linea de producto</th>
+                        <th scope="col">precio</th>
+                        <th scope="col">usuario</th>
+                    <tr>
+                </thead>
+                <tbody>
+                    {% for productos in producto %}
+                    <tr>
+                        <td>{{productos.nombre}}</td>
+                        <td>{{productos.linea}}</td>
+                        <td>${{productos.precio_unitario}}</td>
+                        <td>{{productos.user.username}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+            {% comment %} fin formulario {% endcomment %}
+            {% comment %} alertas {% endcomment %}
+            <div class="container bg-light">
+            <div class="container">
+                <div class="row">
+                    <center>
+                        <hr>
+                        <div class="col-md-12">
+                            <center>
+                                <div class="alert alert-success" role="alert">
+                                    <h4 class="alert-heading">Bien hecho!</h4>
+                                    <p>Se han encontrado {{producto|length}} producto(s)</p>
+                                    <a href="/crearproducto/" class="btn btn-primary">Crear nuevo producto</a>
+                                </div>
+                            </center>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+            {% else %}
+            <div class="container bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning" role="alert">
+                            <center>
+                                <h4 class="alert-heading">No hay productos</h4>
+                                <p>Por favor registre un producto</p>
+                                <hr>
+                                <p class="mb-0">Si ya registro un producto, por favor verifique que este activo</p>
+                                <br>
+                                <a href="/crearproducto/" class="btn btn-primary">Crear nuevo producto</a>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            {% comment %} fin alertas {% endcomment %}
+
+  
+{% endif %}
+{% endblock content %}
