@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,14 +21,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sa07u$hgc)a-h0x^ar(^4ri*is!us8xm0dnmio52$i4=jvb2lb'
+#SECRET_KEY = 'django-insecure-sa07u$hgc)a-h0x^ar(^4ri*is!us8xm0dnmio52$i4=jvb2lb'
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = 'RENDER' not in os.environ
+
 
 ALLOWED_HOSTS = []
 
-
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:    
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 # Application definition
 
 INSTALLED_APPS = [
@@ -76,16 +82,24 @@ WSGI_APPLICATION = 'sistemaDeControlProject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'grupo2',
+#         'USER': 'grupo2',
+#         'PASSWORD': 'inacap.2022',
+#         'HOST': '165.227.196.34',
+#         'PORT': '3306',
+#     }
+# }
+
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'grupo2',
-        'USER': 'grupo2',
-        'PASSWORD': 'inacap.2022',
-        'HOST': '165.227.196.34',
-        'PORT': '3306',
+    'default': dj_database_url.config(
+        default='postgres://postgres:postgres@localhost/postgres',
+        conn_max_age=600,
+    )
     }
-}
 
 
 # Password validation
